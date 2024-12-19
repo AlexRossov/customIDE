@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Данный проект написан на Next.js.
 
-## Getting Started
-
-First, run the development server:
-
-```bash
+Для запуска проекта локально нужно скачать код и выполнить последовательно следующие команды:
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Приложение запустится по адресу: http://localhost:3000
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+На vercel приложение работает по адресу: ...
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Задача: реализовать упрощённый интерфейс редактора кода, который будет подсвечивать синтаксис языков программирования. Выполнять код и выводить результаты в консоль.
 
-## Learn More
+В данном проекте предложен выбор между JS и PHP. При смене языка подсветка синтаксиса меняется.
 
-To learn more about Next.js, take a look at the following resources:
+JS код выполняется посредством отправки POST запроса по адресу "/api/execute", там реализован скрипт, который выполняет код и возвращает результат на консоль.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+PHP не выполняется, поскольку это серверный язык и реализация его выполнения выходит за рамки текущего задания.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Редактор кода реализован с помощью библиотеки - codemirror.
 
-## Deploy on Vercel
+Консоль реализована с помощью библиотеки - console-feed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Для безопасности предусмотрена минимальная валидация для JS, но она условна, поскольку для других языков нужно искать другие решения. В идеале изолировать среду выполнения каждого языка с помощью docker-sandbox.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+В приложение легко добавить новые языки.
+
+Добавлены кнопки запуска выполнения кода, а так же очистки поля ввода и консоли для удобства.
+
+Данные редактора кода сохраняются в localStorage с задержкой 300 мс.

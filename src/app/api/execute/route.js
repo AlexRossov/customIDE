@@ -1,33 +1,45 @@
 export async function POST(req) {
   try {
-    // Парсим тело запроса
+    // Чтение и разбор запроса
     const { code, language } = await req.json();
 
-    // Проверяем язык
+    // Проверка, что язык - JavaScript
     if (language !== 'javascript') {
       return Response.json(
-        { success: false, error: 'Only JavaScript execution is supported.' },
+        { status: 'error', error: 'Поддерживается только выполнение JavaScript.' },
         { status: 400 }
       );
     }
 
-    // Исполняем код безопасно
-    let result = '';
+    // Выполнение кода
+    let output = '';
     try {
+      // Захватываем вывод из console.log()
+      const log = [];
+      const originalConsoleLog = console.log;
+      console.log = (...args) => {
+        log.push(args.join(' '));
+      };
+
       const safeFunction = new Function(code);
-      result = safeFunction();
+      safeFunction(); // Выполняем код
+
+      // Восстанавливаем console.log
+      console.log = originalConsoleLog;
+
+      output = log.join('\n') || 'Выполнение успешно завершено.';
     } catch (executionError) {
       return Response.json(
-        { success: false, error: executionError.message },
+        { status: 'error', error: executionError.message },
         { status: 400 }
       );
     }
 
-    // Возвращаем результат
-    return Response.json({ success: true, result: result ?? 'Execution completed successfully.' });
+    // Успешный ответ
+    return Response.json({ status: 'success', output });
   } catch (error) {
     return Response.json(
-      { success: false, error: 'Invalid request format.' },
+      { status: 'error', error: 'Неверный формат запроса или ошибка сервера.' },
       { status: 500 }
     );
   }

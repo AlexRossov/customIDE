@@ -1,0 +1,16 @@
+.languageSelect {
+  margin-left: 10px;
+  padding: 3px;
+  font-size: 18px;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.languageSelect:focus {
+  outline: none;
+}
+
+.toogleLanguage {
+  max-width: 95%;
+  margin: 30px auto 0;
+}

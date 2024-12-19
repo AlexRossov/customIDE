@@ -1,0 +1,10 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "semi": 1,
+    "object-curly-spacing": ["warn", "always"],
+    "quotes": ["warn", "single", { "avoidEscape": true }],
+    "max-len": ["warn", { "code": 100 }],
+    "indent": ["warn", 2]
+  }
+}
